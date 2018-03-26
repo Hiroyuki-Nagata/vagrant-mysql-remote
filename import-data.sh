@@ -20,7 +20,7 @@ do
     echo "target size for ${TARGET_DATABASE} = ${TARGET_SIZE%.*}M"
 
     DUMP_FILE=/tmp/${TARGET_HOST}_${TARGET_DATABASE}.sql
-    mysqldump -h $TARGET_HOST -u $TARGET_USERNAME -p$TARGET_PASSWORD $TARGET_DATABASE | pv -s ${TARGET_SIZE%.*}M > $DUMP_FILE
+    mysqldump -h $TARGET_HOST -u $TARGET_USERNAME -p$TARGET_PASSWORD $TARGET_DATABASE | pv --interval 5 --force -s ${TARGET_SIZE%.*}M > $DUMP_FILE
     if [ $? -ne 0 ]; then
 	echo "Failed to dump $TARGET_HOST" 1>&2
 	exit 1
