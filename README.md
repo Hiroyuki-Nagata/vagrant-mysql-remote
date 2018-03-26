@@ -36,3 +36,31 @@ $ vagrant provision
     default: 25.4MiB 0:00:15 [2.45MiB/s] [>                                 ]  1% ETA 0:13:47
     default: 38.4MiB 0:00:20 [2.58MiB/s] [>                                 ]  2% ETA 0:12:04
 ```
+
+* MySQL設定
+
+```
+// データベースの名前確認
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
++--------------------+
+
+// アクセス権限を更新
+mysql> grant all privileges on *.* to root@"%" identified by '!! your password here !!' with grant option;
+
+// アクセス許可を変更
+mysql> delete from mysql.user where host <> '%';
+mysql> select user,host from mysql.user;
++------+------+
+| user | host |
++------+------+
+| root | %    |
++------+------+
+```
+
+
