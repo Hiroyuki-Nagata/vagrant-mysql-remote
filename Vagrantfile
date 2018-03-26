@@ -11,7 +11,11 @@ Vagrant.configure("2") do |config|
 
     # install packages
     sudo yum -y update
-    sudo yum -y install mysql
+    sudo yum -y install mysql mysql56-server
+
+    # chkconfig
+    sudo chkconfig mysqld on
+    sudo service mysqld start
 SHELL
 
   # Configure your environment variables
@@ -27,7 +31,6 @@ EOF
 SCRIPT
 
   # Set environment variables & import DB
-  #config.vm.provision :file , source: "import-data.sh", destination: "$HOME/import-data.sh"
   config.vm.provision :shell, inline: $set_environment_variables, run: "always"
   config.vm.provision :shell, path: "import-data.sh"
 end
